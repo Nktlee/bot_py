@@ -1,13 +1,10 @@
 import requests
-import json
 from aiogram import Bot, Dispatcher, F
 from aiogram.filters import CommandStart
-from aiogram.types import (KeyboardButton, Message, ReplyKeyboardMarkup, ReplyKeyboardRemove)
-from aiogram.utils.keyboard import ReplyKeyboardBuilder
+from aiogram.types import (KeyboardButton, Message, ReplyKeyboardMarkup)
+from config import config
 
-BOT_TOKEN = ''
-
-bot = Bot(token=BOT_TOKEN)
+bot = Bot(token=config.tg_bot.token)
 dp = Dispatcher()
 
 button = KeyboardButton(text='Rates')
@@ -32,7 +29,7 @@ def conversion(rates, rate):
     return rate
 
 @dp.message(F.text == 'Rates')
-async def process_dog_answer(message: Message):
+async def process_rates_answer(message: Message):
     rates_USD = get_exchange_rates('https://api.exchangerate-api.com/v4/latest/USD')
     rates_RUB = get_exchange_rates('https://api.exchangerate-api.com/v4/latest/RUB')
 
